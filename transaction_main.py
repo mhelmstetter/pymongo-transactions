@@ -128,12 +128,13 @@ if __name__ == "__main__":
         sys.exit(1)
 
 
+    compatible_fcvs = ["4.0", "4.2", "4.4", "5.0"]
     doc = client.admin.command({"getParameter": 1, "featureCompatibilityVersion": 1})
-    if doc["featureCompatibilityVersion"]["version"] != "4.0":
+    if doc["featureCompatibilityVersion"]["version"] not in compatible_fcvs: 
         print("Your mongod is set to featureCompatibility: {}".format(doc["featureCompatibilityVersion"]["version"]))
         print("(This happens if you run mongod 4.0 and point it at data directory created with")
         print(" an older version of mongod)")
-        print("You need to set featureCompatibility to '4.0'")
+        print("You need to set featureCompatibility to one of {}".format(compatible_fcvs))
         print("run 'python3 featurecompatibility.py --feature_version 4.0'")
         sys.exit(1)
 
